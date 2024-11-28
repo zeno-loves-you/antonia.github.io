@@ -15,9 +15,11 @@ const sequence = [
   let letters = [];
   let allLettersAppeared = false;
   
+  const padding = 50 
+  
   function getRandomPosition(variation = 50) {
-      const x = window.innerWidth / 2 + Math.random() * variation - variation / 2;
-      const y = window.innerHeight / 2 + Math.random() * variation - variation / 2;
+      const x = window.innerWidth / 2 + Math.random() * variation - variation / 2 + padding;
+      const y = window.innerHeight / 2 + Math.random() * variation - variation / 2 + padding;
       return [x, y];
   }
   
@@ -35,8 +37,8 @@ const sequence = [
       letter.textContent = char;
       
       // Setze zufällige Position für jeden neuen Buchstaben
-     const left = Math.random() * window.innerWidth;
-     const top = Math.random() * window.innerHeight;
+     const left = Math.random() * window.innerWidth - 2 * padding;
+     const top = Math.random() * window.innerHeight - 2 * padding ;
      letter.style.left = `${left}px`;
      letter.style.top = `${top}px`;
 
@@ -107,8 +109,36 @@ const sequence = [
 
     // Beende das Animations-Loop, damit die Buchstaben stillstehen
     allLettersAppeared = true;
+    // Zeige den Button "Zum Adventskalender" nach der Endformation
+    createAdventButton();
 }
+// Button "Zum Adventskalender" erstellen
+    function createAdventButton() {
+        const button = document.createElement('button');
+        button.textContent = "Zum Adventskalender";
+        const { color, fontFamily, fontWeight } = getRandomProperties();
 
+        Object.assign(button.style, {
+            position: 'absolute',
+            left: '50%',
+            top: '20%',
+            transform: 'translate(-50%, -50%)',
+            padding: '10px 20px',
+            border: '2px solid black',
+            background: 'white',
+            cursor: 'pointer',
+            fontSize: '1.5rem',
+            color,
+            fontFamily,
+            fontWeight
+        });
+
+    button.addEventListener('click', () => {
+        window.location.href = "https://zeno-loves-you.github.io"; // Ziel-URL
+    });
+
+        document.body.appendChild(button);
+    }
 
   // Funktion zur kontinuierlichen Bewegung der Buchstaben
 function animateLetters() {
@@ -146,3 +176,16 @@ animateLetters();
   // Starte mit dem ersten Buchstaben
   createLetter(sequence[currentLetterIndex]);
   
+  document.getElementById('skipButton').addEventListener('click', () => {
+    // Erstelle alle fehlenden Buchstaben
+    if (letters.length < sequence.length) {
+        for (let i = letters.length; i < sequence.length; i++) {
+            createLetter(sequence[i]);
+        }
+    }
+
+    // Stoppe Animation und ordne Buchstaben an
+    allLettersAppeared = true;
+    arrangeLetters();
+
+});
