@@ -33,3 +33,32 @@ body {
     font-size: 6vw;
     margin: 0 5px;
 }
+#skipButton {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    padding: 20px 40px;
+    font-size: 24px;
+    background-color: #ff6347;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    z-index: 1000; /* Damit der Button über allen Elementen liegt */
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
+    transition: transform 0.2s, background-color 0.2s;
+}
+
+#skipButton:hover {
+    background-color: #ff4500;
+    transform: scale(1.1);
+}
+
+.advent-button {
+    border-radius: 8px;
+    transition: all 0.3s ease;
+}
+.advent-button:hover {
+    background-color: black;
+    color: white;
+}
